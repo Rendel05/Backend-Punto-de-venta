@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from "cors"
 
 import suppliersRoutes from './src/routes/suppliersRoutes.js'
 import categoriesRoutes from './src/routes/categoriesRoutes.js'
@@ -12,7 +13,9 @@ import cashierRoutes from './src/routes/cashierRoutes.js'
 
 const app = express()
 
+
 app.use(express.json())
+app.use(cors())
 
 app.use('/api', suppliersRoutes)
 app.use('/api', categoriesRoutes)
