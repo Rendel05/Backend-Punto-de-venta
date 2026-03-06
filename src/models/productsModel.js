@@ -80,9 +80,11 @@ export const updateProduct = async(id,name,code,description,buy_price,sell_price
 }
 
 export const deleteProduct = async(id) => {
-    const result = await db.query(
-        `UPDATE productos SET(activo=0) WHERE producto_id =?`,[id]
+    const [result] = await db.query(
+        `UPDATE productos SET activo = 0 WHERE producto_id = ?`,
+        [id]
     )
+    return result.affectedRows
 }
 
 export const searchProducts = async(search, page, limit) =>{

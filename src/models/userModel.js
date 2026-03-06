@@ -3,18 +3,20 @@ import bcrypt from 'bcrypt'
 
 export const getAllUsers = async ()=>{
     const [rows]= await db.query( "SELECT usuario_id, alias, rol, activo FROM usuarios WHERE rol = ? OR rol = ?",
-  ['Admin', 'Cajero'])
+    ['Admin', 'Cajero'])
     return rows
 }
 
-export const addNewUser = async (nickname, role, status)=>{
-    const [result]= await db.query( "INSERT INTO usuarios(alias, rol, activo) VALUES(?,?,?)",[nickname, role, status])
+export const addNewUser = async (nickname, password,role, status)=>{
+    const hashedPassword = await bcrypt.hash(password,10)  
+    const [result]= await db.query( "INSERT INTO usuarios(alias,password_hash, rol, activo) VALUES(?,?,?,?)",
+    [nickname,hashedPassword ,role, status])
     return result.affectedRows
 }
 
 export const getUserById = async (id) => {
-    const [rows] = await db.query("Select alias, rol, activo FROM usuarios WHERE usuario_id = ?" ,[id])
-    return rows
+    const [rows] = await db.query("Select usuario_id,alias, rol, activo FROM usuarios WHERE usuario_id = ?" ,[id])
+    return rows[0]
 }
 
 export const deleteUser = async (id) => {
