@@ -13,9 +13,15 @@ import cashierRoutes from './src/routes/cashierRoutes.js'
 
 const app = express()
 
-
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+  origin: "https://pedropruebas.grupoahost.com",
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}))
+
+app.options('*', cors())
 
 app.use('/api', suppliersRoutes)
 app.use('/api', categoriesRoutes)
