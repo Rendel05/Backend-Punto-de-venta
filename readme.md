@@ -32,3 +32,12 @@ Registro de ventas
 Conexión a base de datos
 
 Configuración mediante variables de entorno (.env)
+
+Configuración CORS
+
+El backend permite configurar los orígenes autorizados con la variable `CORS_ORIGINS`.
+Debe contener una lista separada por comas, por ejemplo:
+
+`CORS_ORIGINS=https://pedropruebas.grupoahost.com,https://www.pedropruebas.grupoahost.com,http://localhost:5173`
+
+Si no se define, se usa por defecto `https://pedropruebas.grupoahost.com`.
